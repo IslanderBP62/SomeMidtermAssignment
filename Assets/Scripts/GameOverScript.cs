@@ -16,7 +16,7 @@ public class GameOverScript : MonoBehaviour
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             //Then load the 'Example 3' scene
-            SceneManager.LoadScene("Example 3");
+            SceneManager.LoadScene("Level 1");
         }
     }
 }

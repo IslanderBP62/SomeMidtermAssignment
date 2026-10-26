@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Random = UnityEngine.Random;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,12 +16,16 @@ public class PlayerScript : MonoBehaviour
 
     // Player-specific stats
     public float Speed = 5;
-    public int Score = 0;
-    public int Health = 3;
+    public int LevelScore = 0;
+    public static int TotalScore;
+    public static int Health = 3;
+    public int LevelPicker = 3;
+    public static int CurrentLevel = 1;
     
     // Text meshes
     public TextMeshPro ScoreText;
     public TextMeshPro HealthText;
+    public TextMeshPro LevelText;
     
 
     void Start()
@@ -28,6 +33,7 @@ public class PlayerScript : MonoBehaviour
         // Make sure the text displays correctly
         UpdateScore();
         UpdateHealth();
+        UpdateLevel();
     }
 
     void Update()
@@ -98,34 +104,58 @@ public class PlayerScript : MonoBehaviour
         if (coin != null)
         {
             coin.GetBumped(); // Make the coin destroy itself
-            Score++;
+            LevelScore++;
+            TotalScore++;
             Speed = Speed + 0.2f; // Makes the player move slightly faster
             UpdateScore();
             
             // If our score increases to at least 20, load the win screen
-            if (Score >= 20)
+            if (LevelScore >= 5)
             {
-                Win();
+                NextLevel();
             }
         }
     }
 
     public void UpdateScore() // Updates the score text
     {
-        ScoreText.text = "Score: " + Score;
+        ScoreText.text = "Score: " + TotalScore;
     }
     public void UpdateHealth() // Updates the health text
     {
         HealthText.text = Health + " HP";
     }
+    public void UpdateLevel() // Updates the level text
+    {
+        LevelText.text = "Level " + CurrentLevel;
+    }
 
     public void Die()
     {
         SceneManager.LoadScene("Game Over");
+        Health = 3;
+        LevelScore = 0;
+        TotalScore = 0;
+        CurrentLevel = 1;
     }
     
-    public void Win()
+    public void NextLevel()
     {
-        SceneManager.LoadScene("Game Win");
+        CurrentLevel++;
+        
+        LevelPicker = Random.Range(1, 3);
+        
+        if (LevelPicker == 1)
+        {
+            SceneManager.LoadScene("Level 1");
+        }
+        if (LevelPicker == 2)
+        {
+            SceneManager.LoadScene("Level 2");
+        }
+        if (LevelPicker == 3)
+        {
+            SceneManager.LoadScene("Level 3");
+        }
     }
 }
