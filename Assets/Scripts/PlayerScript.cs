@@ -27,10 +27,17 @@ public class PlayerScript : MonoBehaviour
     public TextMeshPro HealthText;
     public TextMeshPro LevelText;
     
+    // Sound effects
+    public AudioSource AS;
+    public AudioClip CoinSFX;
+    public AudioClip DamageSFX;
+    public AudioClip NextLevelSFX;
+    
 
     void Start()
     {
         // Make sure the text displays correctly
+        AS.PlayOneShot(NextLevelSFX);
         UpdateScore();
         UpdateHealth();
         UpdateLevel();
@@ -85,6 +92,7 @@ public class PlayerScript : MonoBehaviour
         // That something has the Hazard tag
         if (other.gameObject.CompareTag("Hazard"))
         {
+            AS.PlayOneShot(DamageSFX);
             Health = Health - 1;
             UpdateHealth();
             
@@ -103,6 +111,7 @@ public class PlayerScript : MonoBehaviour
         CoinScript coin = other.gameObject.GetComponent<CoinScript>();
         if (coin != null)
         {
+            AS.PlayOneShot(CoinSFX);
             coin.GetBumped(); // Make the coin destroy itself
             LevelScore++;
             TotalScore++;
@@ -110,7 +119,7 @@ public class PlayerScript : MonoBehaviour
             UpdateScore();
             
             // If our score increases to at least 20, load the win screen
-            if (LevelScore >= 5)
+            if (LevelScore >= 10)
             {
                 NextLevel();
             }
@@ -143,7 +152,7 @@ public class PlayerScript : MonoBehaviour
     {
         CurrentLevel++;
         
-        LevelPicker = Random.Range(1, 3);
+        LevelPicker = Random.Range(1, 5);
         
         if (LevelPicker == 1)
         {
@@ -156,6 +165,10 @@ public class PlayerScript : MonoBehaviour
         if (LevelPicker == 3)
         {
             SceneManager.LoadScene("Level 3");
+        }
+        if (LevelPicker == 4)
+        {
+            SceneManager.LoadScene("Level 4");
         }
     }
 }

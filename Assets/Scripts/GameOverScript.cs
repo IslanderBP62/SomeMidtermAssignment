@@ -6,8 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class GameOverScript : MonoBehaviour
 {
-    //This script controls what happens on the Game Over screen
-    //Currently, the only option is for the player to hit 'Space' and restart the game
+    // Sound effects
+    public AudioSource AS;
+    public AudioClip GameOverSFX;
+    
+    // Play sound upon showing this screen
+    void Start()
+    {
+        AS.PlayOneShot(GameOverSFX);
+    }
     
     //Every frame, we check for player inputs
     void Update()
