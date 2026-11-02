@@ -17,6 +17,7 @@ public class PlayerScript : MonoBehaviour
     // Player-specific stats
     public float Speed = 5;
     public int LevelScore = 0;
+    public int FinalScoreValue;
     public static int TotalScore;
     public static int Health = 3;
     public int LevelPicker = 3;
@@ -45,6 +46,7 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
+        FinalScoreValue = TotalScore;
         Vector2 vel = new Vector2(0,0);
         
         if (Keyboard.current.dKey.isPressed) // Moving right
@@ -142,17 +144,27 @@ public class PlayerScript : MonoBehaviour
     public void Die()
     {
         SceneManager.LoadScene("Game Over");
+        FinalScoreValue = TotalScore;
+    }
+    
+    public void FinalScore()
+    {
+        ScoreText.text = "Final Score: " + FinalScoreValue;
+    }
+    
+    public void ResetStats()
+    {
         Health = 3;
         LevelScore = 0;
         TotalScore = 0;
-        CurrentLevel = 1;
+        CurrentLevel = 0;
     }
     
     public void NextLevel()
     {
         CurrentLevel++;
         
-        LevelPicker = Random.Range(1, 5);
+        LevelPicker = Random.Range(1, 7);
         
         if (LevelPicker == 1)
         {
@@ -169,6 +181,14 @@ public class PlayerScript : MonoBehaviour
         if (LevelPicker == 4)
         {
             SceneManager.LoadScene("Level 4");
+        }
+        if (LevelPicker == 5)
+        {
+            SceneManager.LoadScene("Level 5");
+        }
+        if (LevelPicker == 6)
+        {
+            SceneManager.LoadScene("Level 6");
         }
     }
 }

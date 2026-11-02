@@ -1984,6 +1984,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 4d20ea3098fbd46868d4b5bb20965575, type: 3}
     - target: {fileID: 5295994739419230840, guid: 5465daea84a2bcb43acd34cbcbb9c9ae, type: 3}
+      propertyPath: IsAlive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5295994739419230840, guid: 5465daea84a2bcb43acd34cbcbb9c9ae, type: 3}
       propertyPath: DamageSFX
       value: 
       objectReference: {fileID: 8300000, guid: 572a1a3b18d01466d9f4d164c3c0ad56, type: 3}
